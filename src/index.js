@@ -2,16 +2,15 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const chalk = require('chalk');
+const { PORT } = require('./config');
 
 const ScheduleController = require('./controllers');
-const { PORT, HOSTNAME } = require('./config');
 
 app.use(cors());
+app.get('/', (req, res) => res.send('Server works!'));
 app.get('/schedule', ScheduleController.getSchedule);
 app.get('/route', ScheduleController.getRoute);
 
-app.listen(PORT, HOSTNAME, () => {
-    console.info(chalk.magenta(`--+ Server listening at http://${HOSTNAME}:${PORT} +---`));
+app.listen(PORT, () => {
+    console.info(chalk.magenta(`--+ Server listening on ${PORT} port +---`));
 });
-
-// https://git.heroku.com/train-schedule-viewer-api.git
